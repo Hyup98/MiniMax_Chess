@@ -99,15 +99,15 @@ Chess::~Chess()
 	delete[] board;
 }
 
-//À¯Àú ´ë¹®ÀÚ
-//ÄÄÇ»ÅÍ ¼Ò¹®ÀÚ
+//ìœ ì € ëŒ€ë¬¸ì
+//ì»´í“¨í„° ì†Œë¬¸ì
 //C - computer
 //U - user
 //P - Proceeding
 char Chess::isOver(char** board)
 {
-	//Ã¼Å© ¸ŞÀÌÆ®ÀÎ °æ¿ì
-	//¸»ÀÌ ÇÏ³ªµµ ¾øÀ» °æ¿ì
+	//ì²´í¬ ë©”ì´íŠ¸ì¸ ê²½ìš°
+	//ë§ì´ í•˜ë‚˜ë„ ì—†ì„ ê²½ìš°
 	bool hasK = false;
 	bool hask = false;
 	for (size_t i = 0; i < 8; i++)
@@ -163,14 +163,14 @@ void Chess::Play()
 			cout << "User victory";
 			break;
 		}
-		//ÄÄÇ»ÅÍ - È¦¼ö ¹øÂ°
+		//ì»´í“¨í„° - í™€ìˆ˜ ë²ˆì§¸
 		if (count % 2 == 1)
 		{
 			move = Move(0);
 			board[move.mToX][move.mToY] = board[move.mFromX][move.mFromY];
 			board[move.mFromX][move.mFromY] = ' ';
 		}
-		//À¯Àú - Â¦¼ö ¹ø¤Š
+		//ìœ ì € - ì§ìˆ˜ ë²ˆÂŠ
 		else
 		{
 			cout << "Move from : ";
@@ -216,8 +216,8 @@ void Chess::setBoard(char** board, char** temboard)
 
 pMove Chess::Move(int depth)
 {
-	//ÄÄÇ»ÅÍ´Â ¼Ò¹®ÀÚÀÌ´Ù
-	//µÑ ¼ö ÀÖ´Â ¸ğµç ¼ö¸¦ ÀÚ½ÄÀ¸·Î ¸¸µç´Ù
+	//ì»´í“¨í„°ëŠ” ì†Œë¬¸ìì´ë‹¤
+	//ë‘˜ ìˆ˜ ìˆëŠ” ëª¨ë“  ìˆ˜ë¥¼ ìì‹ìœ¼ë¡œ ë§Œë“ ë‹¤
 	vector<pMove> tem;
 	vector<pMove> save;
 	for (size_t i = 0; i < 8; i++)
@@ -226,7 +226,7 @@ pMove Chess::Move(int depth)
 		{
 			if (board[i][j] != ' ' && board[i][j] >= 'a' && board[i][j] <= 'z')
 			{
-				//±× ¸»ÀÌ °¥ ¼ö ÀÖ´Â °÷À» ¸ğµÎ ÀÚ½ÄÀ¸·Î ÀúÀå
+				//ê·¸ ë§ì´ ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì„ ëª¨ë‘ ìì‹ìœ¼ë¡œ ì €ì¥
 				switch (board[i][j])
 				{
 				case 'r':
@@ -257,10 +257,10 @@ pMove Chess::Move(int depth)
 			}
 		}
 	}
-	//¸ğµç ÀÚ½ÄÀ» Àç±ÍÇÔ¼ö¸¦ È£ÃâÇÏ¿© °¢ Á¡¼ö¸¦ ¸Å±ä´Ù
+	//ëª¨ë“  ìì‹ì„ ì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ê° ì ìˆ˜ë¥¼ ë§¤ê¸´ë‹¤
 	for (size_t i = 0; i < tem.size(); i++)
 	{
-		//¿òÁ÷ÀÎ °÷À¸·Î ¸»À» µĞ º¸µå¸¦ »ı¼º
+		//ì›€ì§ì¸ ê³³ìœ¼ë¡œ ë§ì„ ë‘” ë³´ë“œë¥¼ ìƒì„±
 		char** temboard = new char* [8];
 		for (size_t j = 0; j < 8; j++)
 		{
@@ -270,10 +270,10 @@ pMove Chess::Move(int depth)
 
 		temboard[tem[i].mToX][tem[i].mToY] = temboard[tem[i].mFromX][tem[i].mFromY];
 		temboard[tem[i].mFromX][tem[i].mFromY] = ' ';
-		//±× º¸µå¸¦ ¸Å°³º¯¼ö·Î ¹Ş´Â moveÀç±ÍÇÔ¼ö¸¦ È£Ãâ
-		//¹İÈ¯°ªÀÎ Æò°¡°ªÀ» ÀúÀå
+		//ê·¸ ë³´ë“œë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ëŠ” moveì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
+		//ë°˜í™˜ê°’ì¸ í‰ê°€ê°’ì„ ì €ì¥
 		tem[i].addPoint(MoveRecursive(temboard, depth + 1));
-		//º¸µå »èÁ¦
+		//ë³´ë“œ ì‚­ì œ
 		for (size_t j = 0; j < 8; j++)
 		{
 			delete[] temboard[j];
@@ -281,7 +281,7 @@ pMove Chess::Move(int depth)
 		delete[] temboard;
 	}
 
-	//Á¡¼öÁß °¡Àå Å« °ªÀ» °¡Áø ÀÚ½ÄÀ» ¹İÈ¯ÇÑ´Ù,
+	//ì ìˆ˜ì¤‘ ê°€ì¥ í° ê°’ì„ ê°€ì§„ ìì‹ì„ ë°˜í™˜í•œë‹¤,
 	int max = tem[0].mPoint;
 	int index = 0;
 	for (size_t i = 0; i < tem.size(); i++)
@@ -316,8 +316,8 @@ int Chess::MoveRecursive(char** board, int depth)
 	{
 		return 0;
 	}
-	//µÑ ¼ö ÀÖ´Â ¸ğµç ¼ö¸¦ ÀÚ½ÄÀ¸·Î ¸¸µç´Ù
-	//À¯Àú°¡ µÎ´Â °æ¿ì ´ë¹®ÀÚ°¡ ¿òÁ÷ÀÎ´Ù
+	//ë‘˜ ìˆ˜ ìˆëŠ” ëª¨ë“  ìˆ˜ë¥¼ ìì‹ìœ¼ë¡œ ë§Œë“ ë‹¤
+	//ìœ ì €ê°€ ë‘ëŠ” ê²½ìš° ëŒ€ë¬¸ìê°€ ì›€ì§ì¸ë‹¤
 	vector<pMove> tem;
 	vector<pMove> save;
 	if (depth % 2 == 1)
@@ -328,7 +328,7 @@ int Chess::MoveRecursive(char** board, int depth)
 			{
 				if (board[i][j] != ' ' && board[i][j] >= 'A' && board[i][j] <= 'Z')
 				{
-					//±× ¸»ÀÌ °¥ ¼ö ÀÖ´Â °÷À» ¸ğµÎ ÀÚ½ÄÀ¸·Î ÀúÀå
+					//ê·¸ ë§ì´ ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì„ ëª¨ë‘ ìì‹ìœ¼ë¡œ ì €ì¥
 					switch (board[i][j])
 					{
 					case 'R':
@@ -360,7 +360,7 @@ int Chess::MoveRecursive(char** board, int depth)
 			}
 		}
 	}
-	//ÄÄÇ»ÅÍ°¡ µÎ´Â °æ¿ì  ¼Ò¹®ÀÚ°¡ ¿òÁ÷ÀÎ´Ù.
+	//ì»´í“¨í„°ê°€ ë‘ëŠ” ê²½ìš°  ì†Œë¬¸ìê°€ ì›€ì§ì¸ë‹¤.
 	else
 	{
 		for (size_t i = 0; i < 8; i++)
@@ -369,7 +369,7 @@ int Chess::MoveRecursive(char** board, int depth)
 			{
 				if (board[i][j] != ' ' && board[i][j] >= 'a' && board[i][j] <= 'z')
 				{
-					//±× ¸»ÀÌ °¥ ¼ö ÀÖ´Â °÷À» ¸ğµÎ ÀÚ½ÄÀ¸·Î ÀúÀå
+					//ê·¸ ë§ì´ ê°ˆ ìˆ˜ ìˆëŠ” ê³³ì„ ëª¨ë‘ ìì‹ìœ¼ë¡œ ì €ì¥
 					switch (board[i][j])
 					{
 					case 'r':
@@ -407,13 +407,13 @@ int Chess::MoveRecursive(char** board, int depth)
 		return 0;
 	}
 
-	//ÃÖ¼Ú°ª ¹İÈ¯
+	//ìµœì†Ÿê°’ ë°˜í™˜
 	if (depth % 2 == 1)
 	{
-		//¸ğµç ÀÚ½ÄÀ» Àç±ÍÇÔ¼ö¸¦ È£ÃâÇÏ¿© °¢ Á¡¼ö¸¦ ¸Å±ä´Ù
+		//ëª¨ë“  ìì‹ì„ ì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ê° ì ìˆ˜ë¥¼ ë§¤ê¸´ë‹¤
 		for (size_t i = 0; i < tem.size(); i++)
 		{
-			//¿òÁ÷ÀÎ °÷À¸·Î ¸»À» µĞ º¸µå¸¦ »ı¼º
+			//ì›€ì§ì¸ ê³³ìœ¼ë¡œ ë§ì„ ë‘” ë³´ë“œë¥¼ ìƒì„±
 			char** temboard = new char* [8];
 			for (size_t j = 0; j < 8; j++)
 			{
@@ -423,10 +423,10 @@ int Chess::MoveRecursive(char** board, int depth)
 
 			temboard[tem[i].mToX][tem[i].mToY] = temboard[tem[i].mFromX][tem[i].mFromY];
 			temboard[tem[i].mFromX][tem[i].mFromY] = ' ';
-			//±× º¸µå¸¦ ¸Å°³º¯¼ö·Î ¹Ş´Â moveÀç±ÍÇÔ¼ö¸¦ È£Ãâ
-			//¹İÈ¯°ªÀÎ Æò°¡°ªÀ» ÀúÀå
+			//ê·¸ ë³´ë“œë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ëŠ” moveì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
+			//ë°˜í™˜ê°’ì¸ í‰ê°€ê°’ì„ ì €ì¥
 			tem[i].addPoint(MoveRecursive(temboard, depth + 1));
-			//º¸µå »èÁ¦
+			//ë³´ë“œ ì‚­ì œ
 			for (size_t j = 0; j < 8; j++)
 			{
 				delete[] temboard[j];
@@ -434,7 +434,7 @@ int Chess::MoveRecursive(char** board, int depth)
 			delete[] temboard;
 		}
 
-		//Á¡¼öÁß °¡Àå ÀÛÀº °ªÀ» °¡Áø ÀÚ½ÄÀ» ¹İÈ¯ÇÑ´Ù,
+		//ì ìˆ˜ì¤‘ ê°€ì¥ ì‘ì€ ê°’ì„ ê°€ì§„ ìì‹ì„ ë°˜í™˜í•œë‹¤,
 		int min = tem[0].mPoint;
 		int index = 0;
 		for (size_t i = 0; i < tem.size(); i++)
@@ -447,13 +447,13 @@ int Chess::MoveRecursive(char** board, int depth)
 		}
 		return tem[index].mPoint;
 	}
-	//ÃÖ´ñ°ª ¹İÈ¯
+	//ìµœëŒ“ê°’ ë°˜í™˜
 	else
 	{
-		//¸ğµç ÀÚ½ÄÀ» Àç±ÍÇÔ¼ö¸¦ È£ÃâÇÏ¿© °¢ Á¡¼ö¸¦ ¸Å±ä´Ù
+		//ëª¨ë“  ìì‹ì„ ì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì—¬ ê° ì ìˆ˜ë¥¼ ë§¤ê¸´ë‹¤
 		for (size_t i = 0; i < tem.size(); i++)
 		{
-			//¿òÁ÷ÀÎ °÷À¸·Î ¸»À» µĞ º¸µå¸¦ »ı¼º
+			//ì›€ì§ì¸ ê³³ìœ¼ë¡œ ë§ì„ ë‘” ë³´ë“œë¥¼ ìƒì„±
 			char** temboard = new char* [8];
 			for (size_t j = 0; j < 8; j++)
 			{
@@ -463,10 +463,10 @@ int Chess::MoveRecursive(char** board, int depth)
 
 			temboard[tem[i].mToX][tem[i].mToY] = temboard[tem[i].mFromX][tem[i].mFromY];
 			temboard[tem[i].mFromX][tem[i].mFromY] = ' ';
-			//±× º¸µå¸¦ ¸Å°³º¯¼ö·Î ¹Ş´Â moveÀç±ÍÇÔ¼ö¸¦ È£Ãâ
-			//¹İÈ¯°ªÀÎ Æò°¡°ªÀ» ÀúÀå
+			//ê·¸ ë³´ë“œë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ëŠ” moveì¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
+			//ë°˜í™˜ê°’ì¸ í‰ê°€ê°’ì„ ì €ì¥
 			tem[i].addPoint(MoveRecursive(temboard, depth + 1));
-			//º¸µå »èÁ¦
+			//ë³´ë“œ ì‚­ì œ
 			for (size_t j = 0; j < 8; j++)
 			{
 				delete[] temboard[j];
@@ -474,7 +474,7 @@ int Chess::MoveRecursive(char** board, int depth)
 			delete[] temboard;
 		}
 
-		//Á¡¼öÁß °¡Àå Å« °ªÀ» °¡Áø ÀÚ½ÄÀ» ¹İÈ¯ÇÑ´Ù,
+		//ì ìˆ˜ì¤‘ ê°€ì¥ í° ê°’ì„ ê°€ì§„ ìì‹ì„ ë°˜í™˜í•œë‹¤,
 		int max = tem[0].mPoint;
 		int index = 0;
 		for (size_t i = 0; i < tem.size(); i++)
@@ -495,15 +495,15 @@ char** Chess::getBoard()
 }
 
 /*
-* °¡ÁßÄ¡
-* Æù : 10
-* ³ªÀÌÆ® : 30
-* ºñ¼ó : 30
-* ·è : 50
-* Äı : 90
-* Å· : 900
+* ê°€ì¤‘ì¹˜
+* í° : 10
+* ë‚˜ì´íŠ¸ : 30
+* ë¹„ìˆ : 30
+* ë£© : 50
+* í€¸ : 90
+* í‚¹ : 900
 */
-//ºñÁ¤Àû ¸â¹ö ÂüÁ¶´Â Æ¯Á¤ °³Ã¼¿¡ »ó´ëÀûÀÌ¾î¾ßÇÕ´Ï´Ù
+//ë¹„ì •ì  ë©¤ë²„ ì°¸ì¡°ëŠ” íŠ¹ì • ê°œì²´ì— ìƒëŒ€ì ì´ì–´ì•¼í•©ë‹ˆë‹¤
  int Chess::getPoint(char a)
 {
 	if (a == 'p' || a == 'P')
@@ -518,7 +518,7 @@ char** Chess::getBoard()
 	{
 		return 30;
 	}
-	else if (a == 'k' || a == 'K')
+	else if (a == 'n' || a == 'N')
 	{
 		return 30;
 	}
@@ -543,17 +543,17 @@ char** Chess::getBoard()
 //6 |pp pbp  |
 //7 |rnbkq nr|
 //  +--------+
-//ÄÄÇ»ÅÍ´Â ¼Ò¹®ÀÚ
-//À¯Àú´Â ´ë¹®ÀÚ
+//ì»´í“¨í„°ëŠ” ì†Œë¬¸ì
+//ìœ ì €ëŠ” ëŒ€ë¬¸ì
 vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 {
 	vector<pMove> tem;
 	//
 	int index;
-	//ÄÄÇ»ÅÍ´Â ¼Ò¹®ÀÚ
+	//ì»´í“¨í„°ëŠ” ì†Œë¬¸ì
 	if (isComputer)
 	{
-		//À§·Î
+		//ìœ„ë¡œ
 		index = x;
 		while (true)
 		{
@@ -573,7 +573,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¾Æ·¡
+		//ì•„ë˜
 		index = x;
 		while (true)
 		{
@@ -593,7 +593,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¿À¸¥ÂÊ
+		//ì˜¤ë¥¸ìª½
 		index = y;
 		while (true)
 		{
@@ -613,7 +613,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿ŞÂÊ
+		//ì™¼ìª½
 		index = y;
 		while (true)
 		{
@@ -634,10 +634,10 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			tem.push_back(pMove(x, y, x, index));
 		}
 	}
-	//À¯Àú ´ë¹®ÀÚ
+	//ìœ ì € ëŒ€ë¬¸ì
 	else
 	{
-		//À§·Î
+		//ìœ„ë¡œ
 		index = x;
 		while (true)
 		{
@@ -657,7 +657,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¾Æ·¡
+		//ì•„ë˜
 		index = x;
 		while (true)
 		{
@@ -677,7 +677,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¿À¸¥ÂÊ
+		//ì˜¤ë¥¸ìª½
 		index = y;
 		while (true)
 		{
@@ -697,7 +697,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿ŞÂÊ
+		//ì™¼ìª½
 		index = y;
 		while (true)
 		{
@@ -725,11 +725,11 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 	vector<pMove> tem;
 	if (isComputer)
 	{
-		//ÃÑ °æ¿ìÀÇ ¼ö 8°¡Áö
+		//ì´ ê²½ìš°ì˜ ìˆ˜ 8ê°€ì§€
 		//2,-1
 		if (x + 2 < 8 && y - 1 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 2][y - 1] >='A' && board[x + 2][y - 1] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x + 2, y - 1, Chess::getPoint(board[x + 2][y - 1])));
@@ -742,7 +742,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//2,1
 		if (x + 2 < 8 && y + 1 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 2][y + 1] >= 'A' && board[x + 2][y + 1] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x + 2, y + 1, Chess::getPoint(board[x + 2][y + 1])));
@@ -755,7 +755,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//1, -2
 		if (x + 1 < 8 && y - 2 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 1][y - 2] >= 'A' && board[x + 1][y - 2] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x + 1, y - 2, Chess::getPoint(board[x + 1][y - 2])));
@@ -768,7 +768,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//1,2
 		if (x + 1 < 8 && y + 2 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 1][y + 2] >= 'A' && board[x + 1][y + 2] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x + 1, y + 2, Chess::getPoint(board[x + 1][y + 2])));
@@ -781,7 +781,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-2,1
 		if (x - 2 >= 0 && y + 1 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 2][y + 1] >= 'A' && board[x - 2][y + 1] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x - 2, y + 1, Chess::getPoint(board[x - 2][y + 1])));
@@ -794,7 +794,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-2,-1
 		if (x - 2 >= 0 && y - 1 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 2][y - 1] >= 'A' && board[x - 2][y - 1] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x - 2, y - 1, Chess::getPoint(board[x - 2][y - 1])));
@@ -807,7 +807,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-1,2
 		if (x - 1 >= 0 && y + 2 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 1][y + 2] >= 'A' && board[x - 1][y + 2] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x - 1, y + 2, Chess::getPoint(board[x - 1][y + 2])));
@@ -820,7 +820,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-1,-2
 		if (x - 1 >= 0 && y - 2 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 1][y - 2] >= 'A' && board[x - 1][y - 2] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x - 1, y - 2, Chess::getPoint(board[x - 1][y - 2])));
@@ -833,11 +833,11 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 	}
 	else
 	{
-	//ÃÑ °æ¿ìÀÇ ¼ö 8°¡Áö
+	//ì´ ê²½ìš°ì˜ ìˆ˜ 8ê°€ì§€
 		//2,-1
 		if (x + 2 < 8 && y - 1 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 2][y - 1] >= 'a' && board[x + 2][y - 1] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x + 2, y - 1, Chess::getPoint(board[x + 2][y - 1])));
@@ -850,7 +850,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//2,1
 		if (x + 2 < 8 && y + 1 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 2][y + 1] >= 'a' && board[x + 2][y + 1] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x + 2, y + 1, Chess::getPoint(board[x + 2][y + 1])));
@@ -863,7 +863,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//1, -2
 		if (x + 1 < 8 && y - 2 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 1][y - 2] >= 'a' && board[x + 1][y - 2] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x + 1, y - 2, Chess::getPoint(board[x + 1][y - 2])));
@@ -876,7 +876,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//1,2
 		if (x + 1 < 8 && y + 2 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x + 1][y + 2] >= 'a' && board[x + 1][y + 2] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x + 1, y + 2, Chess::getPoint(board[x + 1][y + 2])));
@@ -889,7 +889,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-2,1
 		if (x - 2 >= 0 && y + 1 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 2][y + 1] >= 'a' && board[x - 2][y + 1] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x - 2, y + 1, Chess::getPoint(board[x - 2][y + 1])));
@@ -902,7 +902,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-2,-1
 		if (x - 2 >= 0 && y - 1 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 2][y - 1] >= 'a' && board[x - 2][y - 1] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x - 2, y - 1, Chess::getPoint(board[x - 2][y - 1])));
@@ -915,7 +915,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-1,2
 		if (x - 1 >= 0 && y + 2 < 8)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 1][y + 2] >= 'a' && board[x - 1][y + 2] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x - 1, y + 2, Chess::getPoint(board[x - 1][y + 2])));
@@ -928,7 +928,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		//-1,-2
 		if (x - 1 >= 0 && y - 2 >= 0)
 		{
-			//Àû ¸»ÀÎ °æ¿ì
+			//ì  ë§ì¸ ê²½ìš°
 			if (board[x - 1][y - 2] >= 'a' && board[x - 1][y - 2] <= 'z')
 			{
 				tem.push_back(pMove(x, y, x - 1, y - 2, Chess::getPoint(board[x - 1][y - 2])));
@@ -948,7 +948,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 	int yindex;
 	if (isComputer)
 	{
-		//¿À¸¥ÂÊ ´ë°¢¼± À§
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -970,7 +970,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -992,7 +992,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± À§
+		//ì™¼ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1014,7 +1014,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì™¼ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1039,7 +1039,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 	}
 	else
 	{
-		//¿À¸¥ÂÊ ´ë°¢¼± À§
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1061,7 +1061,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1083,7 +1083,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± À§
+		//ì™¼ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1105,7 +1105,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì™¼ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1135,7 +1135,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 	vector<pMove> tem;
 	if (isComputer)
 	{
-		//ÃÑ 8°¡Áö °æ¿ì
+		//ì´ 8ê°€ì§€ ê²½ìš°
 		if (x + 1 < 8 && y + 1 < 8 )
 		{
 			if (board[x + 1][y + 1] == ' ')
@@ -1326,7 +1326,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 	vector<pMove> tem;
 	if (isComputer)
 	{
-		//À§·Î
+		//ìœ„ë¡œ
 		index = x;
 		while (true)
 		{
@@ -1346,7 +1346,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¾Æ·¡
+		//ì•„ë˜
 		index = x;
 		while (true)
 		{
@@ -1366,7 +1366,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¿À¸¥ÂÊ
+		//ì˜¤ë¥¸ìª½
 		index = y;
 		while (true)
 		{
@@ -1386,7 +1386,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿ŞÂÊ
+		//ì™¼ìª½
 		index = y;
 		while (true)
 		{
@@ -1406,7 +1406,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± À§
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1428,7 +1428,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1450,7 +1450,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± À§
+		//ì™¼ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1472,7 +1472,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì™¼ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1497,7 +1497,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 	}
 	else
 	{
-		//À§·Î
+		//ìœ„ë¡œ
 		index = x;
 		while (true)
 		{
@@ -1517,7 +1517,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¾Æ·¡
+		//ì•„ë˜
 		index = x;
 		while (true)
 		{
@@ -1537,7 +1537,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, index, y));
 		}
-		//¿À¸¥ÂÊ
+		//ì˜¤ë¥¸ìª½
 		index = y;
 		while (true)
 		{
@@ -1557,7 +1557,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿ŞÂÊ
+		//ì™¼ìª½
 		index = y;
 		while (true)
 		{
@@ -1577,7 +1577,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, x, index));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± À§
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1599,7 +1599,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿À¸¥ÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì˜¤ë¥¸ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1621,7 +1621,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± À§
+		//ì™¼ìª½ ëŒ€ê°ì„  ìœ„
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1643,7 +1643,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
 		}
-		//¿ŞÂÊ ´ë°¢¼± ¾Æ·¡
+		//ì™¼ìª½ ëŒ€ê°ì„  ì•„ë˜
 		xindex = x;
 		yindex = y;
 		while (true)
@@ -1675,8 +1675,8 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 	{
 		if(x == 6)
 		{
-			//6¹ø¤Š ÁÙ¿¡ ÀÖÀ¸¸é 1Ä­ or 2Ä­ ÀÌµ¿ °¡´É
-			//¸¸¾à Àû ¸»ÀÌ ÀÚ½ÅÀÇ Ä­ ¾Õ¿¡ ÀÖÀ¸¸é ÀüÁø ºÒ°¡´É
+			//6ë²ˆÂŠ ì¤„ì— ìˆìœ¼ë©´ 1ì¹¸ or 2ì¹¸ ì´ë™ ê°€ëŠ¥
+			//ë§Œì•½ ì  ë§ì´ ìì‹ ì˜ ì¹¸ ì•ì— ìˆìœ¼ë©´ ì „ì§„ ë¶ˆê°€ëŠ¥
 			if (board[x - 1][y] == ' ')
 			{
 				tem.push_back(pMove(x, y, x - 1, y));
@@ -1685,7 +1685,7 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 			{
 				tem.push_back(pMove(x, y, x - 2, y));
 			}
-			//¸¸¾à »ó´ë ¸»ÀÌ ¿À¸¥ÂÊ ¿ŞÂÊ ´ë°¢¼±À§¿¡ ÀÖÀ¸¸é Àâ¾Æ¸ÔÀ¸¸é¼­ ÇØ´ç Ä­À¸·Î ÀÌµ¿ °¡´É
+			//ë§Œì•½ ìƒëŒ€ ë§ì´ ì˜¤ë¥¸ìª½ ì™¼ìª½ ëŒ€ê°ì„ ìœ„ì— ìˆìœ¼ë©´ ì¡ì•„ë¨¹ìœ¼ë©´ì„œ í•´ë‹¹ ì¹¸ìœ¼ë¡œ ì´ë™ ê°€ëŠ¥
 			if (y - 1 >= 0)
 			{
 				if (board[x - 1][y - 1] >= 'A' && board[x - 1][y - 1] <= 'Z')
@@ -1703,13 +1703,13 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 		}
 		else if (x - 1 >= 0)
 		{
-			//¿Ü¿¡´Â 1Ä­ ÀüÁø¸¸ 
-			//¸¸¾à Àû ¸»ÀÌ ÀÚ½ÅÀÇ Ä­ ¾Õ¿¡ ÀÖÀ¸¸é ÀüÁø ºÒ°¡´É
+			//ì™¸ì—ëŠ” 1ì¹¸ ì „ì§„ë§Œ 
+			//ë§Œì•½ ì  ë§ì´ ìì‹ ì˜ ì¹¸ ì•ì— ìˆìœ¼ë©´ ì „ì§„ ë¶ˆê°€ëŠ¥
 			if (board[x - 1][y] == ' ')
 			{
 				tem.push_back(pMove(x, y, x - 1, y));
 			}
-			//¸¸¾à »ó´ë ¸»ÀÌ ¿À¸¥ÂÊ ¿ŞÂÊ ´ë°¢¼±À§¿¡ ÀÖÀ¸¸é Àâ¾Æ¸ÔÀ¸¸é¼­ ÇØ´ç Ä­À¸·Î ÀÌµ¿ °¡´É
+			//ë§Œì•½ ìƒëŒ€ ë§ì´ ì˜¤ë¥¸ìª½ ì™¼ìª½ ëŒ€ê°ì„ ìœ„ì— ìˆìœ¼ë©´ ì¡ì•„ë¨¹ìœ¼ë©´ì„œ í•´ë‹¹ ì¹¸ìœ¼ë¡œ ì´ë™ ê°€ëŠ¥
 			if (y - 1 >= 0)
 			{
 				if (board[x - 1][y - 1] >= 'A' && board[x - 1][y - 1] <= 'Z')
@@ -1730,8 +1730,8 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 	{
 		if (x == 1)
 		{
-			//6¹ø¤Š ÁÙ¿¡ ÀÖÀ¸¸é 1Ä­ or 2Ä­ ÀÌµ¿ °¡´É
-			//¸¸¾à Àû ¸»ÀÌ ÀÚ½ÅÀÇ Ä­ ¾Õ¿¡ ÀÖÀ¸¸é ÀüÁø ºÒ°¡´É
+			//6ë²ˆÂŠ ì¤„ì— ìˆìœ¼ë©´ 1ì¹¸ or 2ì¹¸ ì´ë™ ê°€ëŠ¥
+			//ë§Œì•½ ì  ë§ì´ ìì‹ ì˜ ì¹¸ ì•ì— ìˆìœ¼ë©´ ì „ì§„ ë¶ˆê°€ëŠ¥
 			if (board[x + 1][y] == ' ')
 			{
 				tem.push_back(pMove(x, y, x + 1, y));
@@ -1740,7 +1740,7 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 			{
 				tem.push_back(pMove(x, y, x + 2, y));
 			}
-			//¸¸¾à »ó´ë ¸»ÀÌ ¿À¸¥ÂÊ ¿ŞÂÊ ´ë°¢¼±À§¿¡ ÀÖÀ¸¸é Àâ¾Æ¸ÔÀ¸¸é¼­ ÇØ´ç Ä­À¸·Î ÀÌµ¿ °¡´É
+			//ë§Œì•½ ìƒëŒ€ ë§ì´ ì˜¤ë¥¸ìª½ ì™¼ìª½ ëŒ€ê°ì„ ìœ„ì— ìˆìœ¼ë©´ ì¡ì•„ë¨¹ìœ¼ë©´ì„œ í•´ë‹¹ ì¹¸ìœ¼ë¡œ ì´ë™ ê°€ëŠ¥
 			if (y - 1 >= 0)
 			{
 				if (board[x + 1][y - 1] >= 'a' && board[x + 1][y - 1] <= 'z')
@@ -1758,13 +1758,13 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 		}
 		else if (x + 1 < 8)
 		{
-			//¿Ü¿¡´Â 1Ä­ ÀüÁø¸¸ 
-			//¸¸¾à Àû ¸»ÀÌ ÀÚ½ÅÀÇ Ä­ ¾Õ¿¡ ÀÖÀ¸¸é ÀüÁø ºÒ°¡´É
+			//ì™¸ì—ëŠ” 1ì¹¸ ì „ì§„ë§Œ 
+			//ë§Œì•½ ì  ë§ì´ ìì‹ ì˜ ì¹¸ ì•ì— ìˆìœ¼ë©´ ì „ì§„ ë¶ˆê°€ëŠ¥
 			if (board[x + 1][y] == ' ')
 			{
 				tem.push_back(pMove(x, y, x + 1, y));
 			}
-			//¸¸¾à »ó´ë ¸»ÀÌ ¿À¸¥ÂÊ ¿ŞÂÊ ´ë°¢¼±À§¿¡ ÀÖÀ¸¸é Àâ¾Æ¸ÔÀ¸¸é¼­ ÇØ´ç Ä­À¸·Î ÀÌµ¿ °¡´É
+			//ë§Œì•½ ìƒëŒ€ ë§ì´ ì˜¤ë¥¸ìª½ ì™¼ìª½ ëŒ€ê°ì„ ìœ„ì— ìˆìœ¼ë©´ ì¡ì•„ë¨¹ìœ¼ë©´ì„œ í•´ë‹¹ ì¹¸ìœ¼ë¡œ ì´ë™ ê°€ëŠ¥
 			if (y - 1 >= 0)
 			{
 				if (board[x + 1][y - 1] >= 'a' && board[x + 1][y - 1] <= 'z')
