@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "pMove.h"
 #include <vector>
 using namespace std;
 class Chess
 {
 public:
-	Chess();//º¸µå »ı¼º
+	Chess();//ë³´ë“œ ìƒì„±
 	~Chess();
 	char isOver(char** board);
 	void Play();

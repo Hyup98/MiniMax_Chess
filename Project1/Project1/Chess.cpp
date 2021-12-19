@@ -1,6 +1,7 @@
-#include "Chess.h"
+﻿#include "Chess.h"
 #include <iostream>
-#include<vector>
+#include <vector>
+#include "pMove.h"
 using namespace std;
 
 //   abcdefgh
@@ -17,7 +18,7 @@ using namespace std;
 
 Chess::Chess()
 {
-	board = new char*[8];
+	board = new char* [8];
 	for (size_t i = 0; i < 8; i++)
 	{
 		board[i] = new char[8];
@@ -54,7 +55,7 @@ Chess::Chess()
 				{
 					board[i][j] = 'K';
 				}
-				else 
+				else
 				{
 					board[i][j] = 'Q';
 				}
@@ -82,7 +83,7 @@ Chess::Chess()
 					board[i][j] = 'q';
 				}
 			}
-			else 
+			else
 			{
 				board[i][j] = ' ';
 			}
@@ -148,7 +149,7 @@ void Chess::Play()
 	cout << "*******WELLCOME*******\n";
 	printBoard(getBoard());
 	int count = 1;
-	int fromX, fromY,toX,toY;
+	int fromX, fromY, toX, toY;
 	pMove move;
 
 	while (true)
@@ -169,8 +170,9 @@ void Chess::Play()
 			move = Move(0);
 			board[move.mToX][move.mToY] = board[move.mFromX][move.mFromY];
 			board[move.mFromX][move.mFromY] = ' ';
+			//이동 위치에 상대 말이 존재하면 잡아먹은 걸로 처리하고 잡아먹은 배열에 추가
 		}
-		//유저 - 짝수 번
+		//유저 - 짝수 번쨰
 		else
 		{
 			cout << "Move from : ";
@@ -181,6 +183,7 @@ void Chess::Play()
 			cin >> toY;
 			board[toX][toY] = board[fromX][fromY];
 			board[fromX][fromY] = ' ';
+			//이동 위치에 상대 말이 존재하면 잡아먹은 걸로 처리하고 잡아먹은 배열에 추가
 		}
 		count++;
 		printBoard(board);
@@ -261,7 +264,7 @@ pMove Chess::Move(int depth)
 	for (size_t i = 0; i < tem.size(); i++)
 	{
 		//움직인 곳으로 말을 둔 보드를 생성
-		char** temboard = new char* [8];
+		char** temboard = new char*[8];
 		for (size_t j = 0; j < 8; j++)
 		{
 			temboard[j] = new char[8];
@@ -504,7 +507,7 @@ char** Chess::getBoard()
 * 킹 : 900
 */
 //비정적 멤버 참조는 특정 개체에 상대적이어야합니다
- int Chess::getPoint(char a)
+int Chess::getPoint(char a)
 {
 	if (a == 'p' || a == 'P')
 	{
@@ -545,7 +548,7 @@ char** Chess::getBoard()
 //  +--------+
 //컴퓨터는 소문자
 //유저는 대문자
-vector<pMove> Chess::RookMove(char** board, bool isComputer,int x, int y)
+vector<pMove> Chess::RookMove(char** board, bool isComputer, int x, int y)
 {
 	vector<pMove> tem;
 	//
@@ -730,7 +733,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 		if (x + 2 < 8 && y - 1 >= 0)
 		{
 			//적 말인 경우
-			if (board[x + 2][y - 1] >='A' && board[x + 2][y - 1] <= 'Z')
+			if (board[x + 2][y - 1] >= 'A' && board[x + 2][y - 1] <= 'Z')
 			{
 				tem.push_back(pMove(x, y, x + 2, y - 1, Chess::getPoint(board[x + 2][y - 1])));
 			}
@@ -833,8 +836,8 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 	}
 	else
 	{
-	//총 경우의 수 8가지
-		//2,-1
+		//총 경우의 수 8가지
+			//2,-1
 		if (x + 2 < 8 && y - 1 >= 0)
 		{
 			//적 말인 경우
@@ -1136,7 +1139,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 	if (isComputer)
 	{
 		//총 8가지 경우
-		if (x + 1 < 8 && y + 1 < 8 )
+		if (x + 1 < 8 && y + 1 < 8)
 		{
 			if (board[x + 1][y + 1] == ' ')
 			{
@@ -1673,9 +1676,9 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 	vector<pMove> tem;
 	if (isComputer)
 	{
-		if(x == 6)
+		if (x == 6)
 		{
-			//6번 줄에 있으면 1칸 or 2칸 이동 가능
+			//6번쨰 줄에 있으면 1칸 or 2칸 이동 가능
 			//만약 적 말이 자신의 칸 앞에 있으면 전진 불가능
 			if (board[x - 1][y] == ' ')
 			{
@@ -1730,7 +1733,7 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 	{
 		if (x == 1)
 		{
-			//6번 줄에 있으면 1칸 or 2칸 이동 가능
+			//6번쨰 줄에 있으면 1칸 or 2칸 이동 가능
 			//만약 적 말이 자신의 칸 앞에 있으면 전진 불가능
 			if (board[x + 1][y] == ' ')
 			{
