@@ -1,7 +1,6 @@
 ﻿#include "Chess.h"
 #include <iostream>
-#include <vector>
-#include "pMove.h"
+#include<vector>
 using namespace std;
 
 //   abcdefgh
@@ -264,7 +263,7 @@ pMove Chess::Move(int depth)
 	for (size_t i = 0; i < tem.size(); i++)
 	{
 		//움직인 곳으로 말을 둔 보드를 생성
-		char** temboard = new char*[8];
+		char** temboard = new char* [8];
 		for (size_t j = 0; j < 8; j++)
 		{
 			temboard[j] = new char[8];
@@ -511,15 +510,15 @@ int Chess::getPoint(char a)
 {
 	if (a == 'p' || a == 'P')
 	{
-		return 10;
+		return 20;
 	}
 	else if (a == 'R' || a == 'r')
 	{
-		return 50;
+		return 60;
 	}
 	else if (a == 'b' || a == 'B')
 	{
-		return 30;
+		return 40;
 	}
 	else if (a == 'n' || a == 'N')
 	{
@@ -527,11 +526,39 @@ int Chess::getPoint(char a)
 	}
 	else if (a == 'Q' || a == 'q')
 	{
-		return 90;
+		return 100;
 	}
 	else
 	{
 		return 900;
+	}
+}
+
+int Chess::getNegativePoint(char a)
+{
+	if (a == 'p' || a == 'P')
+	{
+		return -10;
+	}
+	else if (a == 'R' || a == 'r')
+	{
+		return -50;
+	}
+	else if (a == 'b' || a == 'B')
+	{
+		return -30;
+	}
+	else if (a == 'n' || a == 'N')
+	{
+		return -30;
+	}
+	else if (a == 'Q' || a == 'q')
+	{
+		return -90;
+	}
+	else
+	{
+		return -900;
 	}
 }
 
@@ -655,7 +682,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[index][y] >= 'a' || board[index][y] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, index, y));
@@ -675,7 +702,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[index][y] >= 'a' || board[index][y] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, index, y));
@@ -695,7 +722,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[x][index] >= 'a' || board[x][index] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x, index, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, x, index, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, x, index));
@@ -715,7 +742,7 @@ vector<pMove> Chess::RookMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[x][index] >= 'a' || board[x][index] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, x, index));
@@ -843,7 +870,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x + 2][y - 1] >= 'a' && board[x + 2][y - 1] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 2, y - 1, Chess::getPoint(board[x + 2][y - 1])));
+				tem.push_back(pMove(x, y, x + 2, y - 1, Chess::getNegativePoint(board[x + 2][y - 1])));
 			}
 			else if (board[x + 2][y - 1] == ' ')
 			{
@@ -856,7 +883,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x + 2][y + 1] >= 'a' && board[x + 2][y + 1] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 2, y + 1, Chess::getPoint(board[x + 2][y + 1])));
+				tem.push_back(pMove(x, y, x + 2, y + 1, Chess::getNegativePoint(board[x + 2][y + 1])));
 			}
 			else if (board[x + 2][y + 1] == ' ')
 			{
@@ -869,7 +896,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x + 1][y - 2] >= 'a' && board[x + 1][y - 2] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 1, y - 2, Chess::getPoint(board[x + 1][y - 2])));
+				tem.push_back(pMove(x, y, x + 1, y - 2, Chess::getNegativePoint(board[x + 1][y - 2])));
 			}
 			else if (board[x + 1][y - 2] == ' ')
 			{
@@ -882,7 +909,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x + 1][y + 2] >= 'a' && board[x + 1][y + 2] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 1, y + 2, Chess::getPoint(board[x + 1][y + 2])));
+				tem.push_back(pMove(x, y, x + 1, y + 2, Chess::getNegativePoint(board[x + 1][y + 2])));
 			}
 			else if (board[x + 1][y + 2] == ' ')
 			{
@@ -895,7 +922,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x - 2][y + 1] >= 'a' && board[x - 2][y + 1] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 2, y + 1, Chess::getPoint(board[x - 2][y + 1])));
+				tem.push_back(pMove(x, y, x - 2, y + 1, Chess::getNegativePoint(board[x - 2][y + 1])));
 			}
 			else if (board[x - 2][y + 1] == ' ')
 			{
@@ -908,7 +935,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x - 2][y - 1] >= 'a' && board[x - 2][y - 1] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 2, y - 1, Chess::getPoint(board[x - 2][y - 1])));
+				tem.push_back(pMove(x, y, x - 2, y - 1, Chess::getNegativePoint(board[x - 2][y - 1])));
 			}
 			else if (board[x - 2][y - 1] == ' ')
 			{
@@ -921,7 +948,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x - 1][y + 2] >= 'a' && board[x - 1][y + 2] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 1, y + 2, Chess::getPoint(board[x - 1][y + 2])));
+				tem.push_back(pMove(x, y, x - 1, y + 2, Chess::getNegativePoint(board[x - 1][y + 2])));
 			}
 			else if (board[x - 1][y + 2] == ' ')
 			{
@@ -934,7 +961,7 @@ vector<pMove> Chess::KnightMove(char** board, bool isComputer, int x, int y)
 			//적 말인 경우
 			if (board[x - 1][y - 2] >= 'a' && board[x - 1][y - 2] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 1, y - 2, Chess::getPoint(board[x - 1][y - 2])));
+				tem.push_back(pMove(x, y, x - 1, y - 2, Chess::getNegativePoint(board[x - 1][y - 2])));
 			}
 			else if (board[x - 1][y - 2] == ' ')
 			{
@@ -1047,7 +1074,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 		yindex = y;
 		while (true)
 		{
-			if (xindex == 0 || yindex == 8)
+			if (xindex == 0 || yindex == 7)
 			{
 				break;
 			}
@@ -1059,7 +1086,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1069,7 +1096,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 		yindex = y;
 		while (true)
 		{
-			if (xindex == 8 || yindex == 0)
+			if (xindex == 7 || yindex == 0)
 			{
 				break;
 			}
@@ -1081,7 +1108,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1103,7 +1130,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1113,7 +1140,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 		yindex = y;
 		while (true)
 		{
-			if (xindex == 8 || yindex == 8)
+			if (xindex == 7 || yindex == 7)
 			{
 				break;
 			}
@@ -1125,7 +1152,7 @@ vector<pMove> Chess::BishopMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1172,7 +1199,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 				tem.push_back(pMove(x, y, x + 1, y, Chess::getPoint(board[x + 1][y])));
 			}
 		}
-		if (x - 1 >= 8 && y + 1 < 8)
+		if (x - 1 >= 0 && y + 1 < 8)
 		{
 			if (board[x - 1][y + 1] == ' ')
 			{
@@ -1183,7 +1210,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 				tem.push_back(pMove(x, y, x - 1, y + 1, Chess::getPoint(board[x - 1][y + 1])));
 			}
 		}
-		if (x - 1 >= 8 && y - 1 >= 0)
+		if (x - 1 >= 0 && y - 1 >= 0)
 		{
 			if (board[x - 1][y - 1] == ' ')
 			{
@@ -1194,7 +1221,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 				tem.push_back(pMove(x, y, x - 1, y - 1, Chess::getPoint(board[x - 1][y - 1])));
 			}
 		}
-		if (x - 1 >= 8)
+		if (x - 1 >= 0)
 		{
 			if (board[x - 1][y] == ' ')
 			{
@@ -1238,7 +1265,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x + 1][y + 1] >= 'a' && board[x + 1][y + 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getPoint(board[x + 1][y + 1])));
+				tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getNegativePoint(board[x + 1][y + 1])));
 			}
 		}
 		if (x + 1 < 8 && y - 1 > 0)
@@ -1249,7 +1276,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x + 1][y - 1] >= 'a' && board[x + 1][y - 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getPoint(board[x + 1][y - 1])));
+				tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getNegativePoint(board[x + 1][y - 1])));
 			}
 		}
 		if (x + 1 < 8)
@@ -1260,7 +1287,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x + 1][y] >= 'a' && board[x + 1][y] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x + 1, y, Chess::getPoint(board[x + 1][y])));
+				tem.push_back(pMove(x, y, x + 1, y, Chess::getNegativePoint(board[x + 1][y])));
 			}
 		}
 		if (x - 1 >= 0 && y + 1 < 8)
@@ -1271,7 +1298,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x - 1][y + 1] >= 'a' && board[x - 1][y + 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 1, y + 1, Chess::getPoint(board[x - 1][y + 1])));
+				tem.push_back(pMove(x, y, x - 1, y + 1, Chess::getNegativePoint(board[x - 1][y + 1])));
 			}
 		}
 		if (x - 1 >= 0 && y - 1 >= 0)
@@ -1282,7 +1309,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x - 1][y - 1] >= 'a' && board[x - 1][y - 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 1, y - 1, Chess::getPoint(board[x - 1][y - 1])));
+				tem.push_back(pMove(x, y, x - 1, y - 1, Chess::getNegativePoint(board[x - 1][y - 1])));
 			}
 		}
 		if (x - 1 >= 0)
@@ -1293,7 +1320,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x - 1][y] >= 'a' && board[x - 1][y] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x - 1, y, Chess::getPoint(board[x - 1][y])));
+				tem.push_back(pMove(x, y, x - 1, y, Chess::getNegativePoint(board[x - 1][y])));
 			}
 		}
 		if (y + 1 < 8)
@@ -1304,7 +1331,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x][y + 1] >= 'a' && board[x][y + 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x, y + 1, Chess::getPoint(board[x][y + 1])));
+				tem.push_back(pMove(x, y, x, y + 1, Chess::getNegativePoint(board[x][y + 1])));
 			}
 		}
 		if (y - 1 >= 0)
@@ -1315,7 +1342,7 @@ vector<pMove> Chess::KingMove(char** board, bool isComputer, int x, int y)
 			}
 			else if (board[x][y - 1] >= 'a' && board[x][y - 1] >= 'z')
 			{
-				tem.push_back(pMove(x, y, x, y - 1, Chess::getPoint(board[x][y - 1])));
+				tem.push_back(pMove(x, y, x, y - 1, Chess::getNegativePoint(board[x][y - 1])));
 			}
 		}
 	}
@@ -1515,7 +1542,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[index][y] >= 'a' || board[index][y] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, index, y));
@@ -1535,7 +1562,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[index][y] >= 'a' || board[index][y] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, index, y));
@@ -1555,7 +1582,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[x][index] >= 'a' || board[x][index] <= 'z')
 			{
-				tem.push_back(pMove(x, y, x, index, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, x, index, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, x, index));
@@ -1575,7 +1602,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[x][index] >= 'a' || board[x][index] <= 'z')
 			{
-				tem.push_back(pMove(x, y, index, y, Chess::getPoint(board[index][y])));
+				tem.push_back(pMove(x, y, index, y, Chess::getNegativePoint(board[index][y])));
 				break;
 			}
 			tem.push_back(pMove(x, y, x, index));
@@ -1597,7 +1624,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1619,7 +1646,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1641,7 +1668,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1663,7 +1690,7 @@ vector<pMove> Chess::QueenMove(char** board, bool isComputer, int x, int y)
 			}
 			if (board[xindex][yindex] >= 'a' || board[xindex][yindex] <= 'z')
 			{
-				tem.push_back(pMove(x, y, xindex, yindex, Chess::getPoint(board[xindex][yindex])));
+				tem.push_back(pMove(x, y, xindex, yindex, Chess::getNegativePoint(board[xindex][yindex])));
 				break;
 			}
 			tem.push_back(pMove(x, y, xindex, yindex));
@@ -1748,14 +1775,14 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 			{
 				if (board[x + 1][y - 1] >= 'a' && board[x + 1][y - 1] <= 'z')
 				{
-					tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getPoint(board[x + 1][y - 1])));
+					tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getNegativePoint(board[x + 1][y - 1])));
 				}
 			}
 			if (y + 1 <= 7)
 			{
 				if (board[x + 1][y + 1] >= 'a' && board[x + 1][y + 1] <= 'z')
 				{
-					tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getPoint(board[x + 1][y - 1])));
+					tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getNegativePoint(board[x + 1][y - 1])));
 				}
 			}
 		}
@@ -1772,14 +1799,14 @@ vector<pMove> Chess::PawnsMove(char** board, bool isComputer, int x, int y)
 			{
 				if (board[x + 1][y - 1] >= 'a' && board[x + 1][y - 1] <= 'z')
 				{
-					tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getPoint(board[x + 1][y - 1])));
+					tem.push_back(pMove(x, y, x + 1, y - 1, Chess::getNegativePoint(board[x + 1][y - 1])));
 				}
 			}
 			if (y + 1 <= 7)
 			{
 				if (board[x + 1][y + 1] >= 'a' && board[x + 1][y + 1] <= 'z')
 				{
-					tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getPoint(board[x + 1][y - 1])));
+					tem.push_back(pMove(x, y, x + 1, y + 1, Chess::getNegativePoint(board[x + 1][y - 1])));
 				}
 			}
 		}

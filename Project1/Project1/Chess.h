@@ -17,7 +17,8 @@ public:
 	vector<pMove> RookMove(char** board, bool isComputer, int x, int y);
 	vector<pMove> KnightMove(char** board, bool isComputer, int x, int y);
 	vector<pMove> BishopMove(char** board, bool isComputer, int x, int y);
-	int static getPoint(char a);
+	int getPoint(char a);
+	int getNegativePoint(char a);
 	vector<pMove> KingMove(char** board, bool isComputer, int x, int y);
 	vector<pMove> QueenMove(char** board, bool isComputer, int x, int y);
 	vector<pMove> PawnsMove(char** board, bool isComputer, int x, int y);
